@@ -8,7 +8,6 @@ import {
 } from "react-table";
 
 import { Button, Form, FormControl, InputGroup, Table } from "react-bootstrap";
-import { TableFilter } from "./TableFilter";
 import {
   FaSortDown,
   FaSortUp,

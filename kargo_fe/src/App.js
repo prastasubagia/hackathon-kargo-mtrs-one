@@ -5,6 +5,9 @@ import { LOCAL_CONSTANTS } from "./constants";
 import Home from "./pages/home";
 import Login from "./pages/login";
 import Trucks from "./pages/trucks";
+import AddTruck from "./pages/trucks/components/AddForm";
+import EditTruck from "./pages/trucks/components/EditForm";
+import ViewTruck from "./pages/trucks/components/ViewForm";
 
 function App() {
   return (
@@ -17,6 +20,22 @@ function App() {
             path="/trucks"
             roles={[LOCAL_CONSTANTS.ROLE.TRANSPORTER]}
             component={Trucks}
+            exact
+          />
+          <PrivateRoute
+            path="/truck/add"
+            roles={[LOCAL_CONSTANTS.ROLE.TRANSPORTER]}
+            component={AddTruck}
+          />
+          <PrivateRoute
+            path="/truck/edit/:id"
+            roles={[LOCAL_CONSTANTS.ROLE.TRANSPORTER]}
+            component={EditTruck}
+          />
+          <PrivateRoute
+            path="/truck/:id"
+            roles={[LOCAL_CONSTANTS.ROLE.TRANSPORTER]}
+            component={ViewTruck}
           />
           {/* <Route path="/truck" component={Trucks} /> */}
           {/* <Route path="/driver" exact component={Drivers} /> */}

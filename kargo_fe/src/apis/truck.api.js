@@ -12,8 +12,14 @@ export const getTruck = async (id) => {
 };
 
 export const createTruck = async (data) => {
-  const response = await axios.post(`${LOCAL_CONSTANTS.BASE_URL}trucks`, data);
-  console.log(response);
+  const payload = {
+    truck: data,
+  };
+  const response = await axios.post(
+    `${LOCAL_CONSTANTS.BASE_URL}trucks`,
+    payload
+  );
+  // console.log(response);
   return response;
 };
 
