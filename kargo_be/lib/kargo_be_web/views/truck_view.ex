@@ -7,7 +7,7 @@ defmodule KargoBeWeb.TruckView do
   end
 
   def render("show.json", %{truck: truck}) do
-    %{data: render_one(truck, TruckView, "truck.json")}
+    %{data: render_one(truck, TruckView, "truck2.json")}
   end
 
   def render("truck.json", %{truck: truck}) do
@@ -19,6 +19,17 @@ defmodule KargoBeWeb.TruckView do
       kir_path: truck.kir_path,
       status: truck.status,
       truck_type: render_one(truck.truck_type, TruckTypeView, "truck_type.json")
+    }
+  end
+
+  def render("truck2.json", %{truck: truck}) do
+    %{id: truck.id,
+      license_number: truck.license_number,
+      license_type: truck.license_type,
+      production_year: truck.production_year,
+      stnk_path: truck.stnk_path,
+      kir_path: truck.kir_path,
+      status: truck.status,
     }
   end
 end
