@@ -13,6 +13,7 @@ function Trucks() {
       {
         Header: "License Number",
         accessor: "license_number",
+        Cell: (props) => <a href={`/truck/${props.row.id}`}>{props.value}</a>,
       },
       {
         Header: "Truck Type",
@@ -60,7 +61,7 @@ function Trucks() {
     []
   );
 
-  const [data, setData] = useState([]);
+  const [data, setData] = useState();
 
   useEffect(() => {
     (async () => {
@@ -91,7 +92,9 @@ function Trucks() {
               <TableContainer columns={columns} data={data} title="Truck" />
             </>
           ) : (
-            <LoadingIndicator />
+            <div className="text-center">
+              <LoadingIndicator />
+            </div>
           )}
         </Container>
       </div>
