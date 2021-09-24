@@ -4,10 +4,11 @@ import {
   useGlobalFilter,
   useSortBy,
   usePagination,
+  useAsyncDebounce,
 } from "react-table";
 
-import { Button, Form, Table } from "react-bootstrap";
-// import { TableFilter } from "./TableFilter";
+import { Button, Form, FormControl, InputGroup, Table } from "react-bootstrap";
+import { TableFilter } from "./TableFilter";
 import {
   FaSortDown,
   FaSortUp,
@@ -15,6 +16,7 @@ import {
   FaPlus,
   FaChevronLeft,
   FaChevronRight,
+  FaSearch,
 } from "react-icons/fa";
 import React from "react";
 
@@ -56,19 +58,39 @@ export function TableContainer({
     usePagination
   );
 
+  const [value, setValue] = React.useState();
+  const onChange = useAsyncDebounce((value) => {
+    setGlobalFilter(value || undefined);
+  }, 200);
+
   return (
     <>
       {/* FILTER */}
       <div className="d-flex flex-row justify-content-between mb-3">
-        <Button variant="success" href={`/${title}/add`}>
+        {/* <Button
+          className="align-self-center"
+          variant="success"
+          href={`/${title}/add`}
+        >
           <FaPlus className="mr-2" />
           Add {title}
-        </Button>
-        {/* <TableFilter
-          preGlobalFilteredRows={preGlobalFilteredRows}
-          globalFilter={state.globalFilter}
-          setGlobalFilter={setGlobalFilter}
-        /> */}
+        </Button> */}
+        <InputGroup>
+          <FormControl
+            type="text"
+            value={value || ""}
+            onChange={(e) => {
+              setValue(e.target.value);
+              onChange(e.target.value);
+            }}
+            placeholder="Search"
+          />
+          <InputGroup.Append>
+            <InputGroup.Text>
+              <FaSearch />
+            </InputGroup.Text>
+          </InputGroup.Append>
+        </InputGroup>
       </div>
 
       {/* TABLE */}
@@ -162,9 +184,7 @@ export function TableContainer({
               <span className="font-medium">{pageOptions.length}</span>
             </span>
             <label>
-              {/* <span className="sr-only">Items Per Page</span> */}
               <Form.Group>
-                {/* <Form.Label>Example select</Form.Label> */}
                 <Form.Control
                   as="select"
                   className="mb-0"
@@ -182,22 +202,6 @@ export function TableContainer({
               </Form.Group>
             </label>
           </div>
-
-          {/* <div>
-            <nav
-              className="relative z-0 inline-flex rounded-md shadow-sm -space-x-px"
-              aria-label="Pagination"
-            >
-              <a
-                className="btn btn-outline-danger btn-floating m-1"
-                onClick={() => gotoPage(0)}
-                disabled={!canPreviousPage}
-                role="button"
-              >
-                <span>First</span>
-              </a>
-            </nav>
-          </div> */}
         </div>
       </div>
     </>
