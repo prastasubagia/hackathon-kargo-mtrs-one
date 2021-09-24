@@ -19,6 +19,8 @@ import {
   FaSearch,
 } from "react-icons/fa";
 import React from "react";
+import { getTruckTypes } from "../../../apis/truck-type.api";
+import { LoadingIndicator } from "../../../components/Loading-Indicator";
 
 export function TableContainer({
   columns,
@@ -59,23 +61,51 @@ export function TableContainer({
   );
 
   const [value, setValue] = React.useState();
+  const [truckType, setType] = React.useState();
+  const [truckTypes, setTypes] = React.useState();
+
+  React.useEffect(() => {
+    (async () => {
+      const response = await getTruckTypes();
+      setTypes(response.data);
+    })();
+  }, []);
+
   const onChange = useAsyncDebounce((value) => {
     setGlobalFilter(value || undefined);
+  }, 200);
+  const onTypeChange = useAsyncDebounce((value) => {
+    console.log(value);
+    setGlobalFilter(value ? (value !== "null" ? value : undefined) : undefined);
   }, 200);
 
   return (
     <>
       {/* FILTER */}
       <div className="d-flex flex-row justify-content-between mb-3">
-        {/* <Button
-          className="align-self-center"
-          variant="success"
-          href={`/${title}/add`}
-        >
-          <FaPlus className="mr-2" />
-          Add {title}
-        </Button> */}
-        <InputGroup>
+        {truckTypes ? (
+          <Form.Control
+            className="w-25"
+            as="select"
+            name="truckType"
+            value={truckType}
+            onChange={(e) => {
+              setType(e.target.value);
+              onTypeChange(e.target.value);
+            }}
+          >
+            <option value="null">Select Type</option>
+            {truckTypes.map((link) => (
+              <option key={`option-${link.id}`} value={link.name}>
+                {link.name}
+              </option>
+            ))}
+          </Form.Control>
+        ) : (
+          <LoadingIndicator />
+        )}
+
+        <InputGroup className="w-25">
           <FormControl
             type="text"
             value={value || ""}
