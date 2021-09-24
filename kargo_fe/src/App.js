@@ -7,7 +7,7 @@ import Login from "./pages/login";
 import Trucks from "./pages/trucks";
 
 import Drivers from "./pages/drivers";
-import { NotFound } from "./components/Not-Found";
+// import { NotFound } from "./components/Not-Found";
 import DetailsPage  from "./components/DetailsPage";
 import AddForm from "./pages/drivers/components/AddForm";
 
