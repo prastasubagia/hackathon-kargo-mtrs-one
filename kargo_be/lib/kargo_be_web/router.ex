@@ -3,10 +3,13 @@ defmodule KargoBeWeb.Router do
 
   pipeline :api do
     plug :accepts, ["json"]
+    plug CORSPlug, origin: ["http://localhost"]
   end
 
   scope "/api", KargoBeWeb do
     pipe_through :api
+
+    resources "/trucks", TruckController, except: [:new, :edit]
   end
 
   # Enables LiveDashboard only for development
