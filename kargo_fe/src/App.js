@@ -10,8 +10,7 @@ import EditTruck from "./pages/trucks/components/EditForm";
 import ViewTruck from "./pages/trucks/components/ViewForm";
 
 import Drivers from "./pages/drivers";
-import { NotFound } from "./components/Not-Found";
-import DetailsPage  from "./components/DetailsPage";
+import DetailsPage from "./components/DetailsPage";
 import AddForm from "./pages/drivers/components/AddForm";
 
 function App() {
@@ -42,22 +41,12 @@ function App() {
             roles={[LOCAL_CONSTANTS.ROLE.TRANSPORTER]}
             component={ViewTruck}
           />
-          {/* <Route path="/truck" component={Trucks} /> */}
-          {/* <Route path="/driver" exact component={Drivers} /> */}
-          {/* <Route path="/driver/add" exact component={AddForm} /> */}
-          {/* <Route path="/driver/update/:id" component={AddForm} /> */}
 
-          <Route path="/not-found" component={NotFound} />
-          <Route path="/driver" exact>
-            <Drivers />
-          </Route>
-          {/* <Route path="/truck">
-            {role === "transporter" ? <Trucks /> : <Login />}
-          </Route> */}
           <Route path="/driver" exact component={Drivers} />
           <Route path="/driver/:id" exact component={DetailsPage} />
           <Route path="/driver/add" exact component={AddForm} />
-          {/* <Route path="/driver/update/:id" component={AddForm} /> */}
+
+          <Route path="/not-found" component={NotFound} />
         </Switch>
       </Router>
     </div>
