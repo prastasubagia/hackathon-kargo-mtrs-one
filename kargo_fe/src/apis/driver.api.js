@@ -7,6 +7,7 @@ export const getDrivers = async () => {
 };
 
 export const getDriver = async (id) => {
+  console.log('id',id);
   const { data } = await axios.get(`${LOCAL_CONSTANTS.BASE_URL}drivers/${id}`);
   return data;
 };
