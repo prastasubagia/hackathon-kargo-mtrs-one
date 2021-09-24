@@ -27,6 +27,7 @@ defmodule KargoBeWeb.Router do
     resources "/drivers", DriverController, except: [:new, :edit]
     resources "/transporters", TransporterController, except: [:new, :edit]
     resources "/shipment_statuses", ShipmentStatusController, except: [:new, :edit]
+    resources "/districts", DistrictController, except: [:new, :edit]
   end
 
   # Enables LiveDashboard only for development
