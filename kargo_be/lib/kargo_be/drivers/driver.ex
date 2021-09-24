@@ -14,8 +14,11 @@ defmodule KargoBe.Drivers.Driver do
 
   @doc false
   def changeset(driver, attrs) do
+
+
     driver
     |> cast(attrs, [:driver_name, :phone_number, :status, :id_card, :driver_license])
     |> validate_required([:driver_name, :phone_number, :status])
+    |> unique_constraint(:phone_number)
   end
 end
