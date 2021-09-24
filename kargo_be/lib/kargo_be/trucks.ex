@@ -17,9 +17,35 @@ defmodule KargoBe.Trucks do
       [%Truck{}, ...]
 
   """
-  def list_trucks do
-    Repo.all(Truck)
-    |> Repo.preload(:truck_type)
+  def list_trucks(params) do
+    if Map.has_key?(params, "license_number") || Map.has_key?(params, "truck_type_id") do
+      truck_type_ids = String.split(params["truck_type_id"], ",") |> Enum.map(&String.to_integer/1)
+      license_number = params["license_number"]
+      like1 = "%#{license_number}%"
+      query =
+        from t in "trucks",
+          join: tt in "truck_types",
+          on: t.truck_type_id == tt.id,
+          where: like(t.license_number, ^like1),
+          where: t.truck_type_id in ^truck_type_ids,
+          select: %{
+            id: t.id,
+            license_number: t.license_number,
+            license_type: t.license_type,
+            production_year: t.production_year,
+            stnk_path: t.stnk_path,
+            kir_path: t.kir_path,
+            status: t.status,
+            truck_type: %{
+              id: tt.id,
+              name: tt.name
+            }
+          }
+      Repo.all(query)
+    else
+      Repo.all(Truck)
+      |> Repo.preload(:truck_type)
+    end
   end
 
   @doc """
