@@ -1,12 +1,30 @@
 defmodule KargoBeWeb.Router do
   use KargoBeWeb, :router
 
+  # Enables static file hosting
+  pipeline :static do
+    plug Plug.Static,
+      at: "/static",
+      from: {:kargo_be, "priv/static"}
+  end
+
+  scope "/static", KargoBeWeb do
+    pipe_through :static
+
+    get "/*path", FallbackController, :not_found
+  end
+
   pipeline :api do
     plug :accepts, ["json"]
+    plug CORSPlug, origin: ["http://localhost"]
   end
 
   scope "/api", KargoBeWeb do
     pipe_through :api
+
+    resources "/trucks", TruckController, except: [:new, :edit]
+    resources "/truck-types", TruckTypeController, except: [:new, :edit]
+    resources "/drivers", DriverController, except: [:new, :edit]
   end
 
   # Enables LiveDashboard only for development
