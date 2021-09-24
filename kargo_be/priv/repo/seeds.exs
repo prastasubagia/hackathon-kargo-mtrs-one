@@ -13,6 +13,7 @@
 alias KargoBe.Repo
 alias KargoBe.Trucks.TruckType
 alias KargoBe.Trucks.Truck
+alias KargoBe.Shipments.ShipmentStatus
 
 # Truck Types
 Repo.insert!(%TruckType{
@@ -46,4 +47,30 @@ Repo.insert!(%Truck{
   stnk_path: "",
   kir_path: "",
   truck_type_id: 2
+})
+
+# Shipment
+Repo.insert!(%ShipmentStatus{
+  name: "Created"
+})
+Repo.insert!(%ShipmentStatus{
+  name: "Assigned"
+})
+Repo.insert!(%ShipmentStatus{
+  name: "Allocated"
+})
+Repo.insert!(%ShipmentStatus{
+  name: "Ongoing to Origin"
+})
+Repo.insert!(%ShipmentStatus{
+  name: "At Origin"
+})
+Repo.insert!(%ShipmentStatus{
+  name: "Ongoing to Destination"
+})
+Repo.insert!(%ShipmentStatus{
+  name: "At Destination"
+})
+Repo.insert!(%ShipmentStatus{
+  name: "Completed"
 })
