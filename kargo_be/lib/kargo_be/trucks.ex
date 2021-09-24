@@ -17,9 +17,12 @@ defmodule KargoBe.Trucks do
       [%Truck{}, ...]
 
   """
-  def list_trucks do
-    Repo.all(Truck)
-    |> Repo.preload(:truck_type)
+  def list_trucks(params) do
+      # license_number = params["license_number"]
+      # like = "#{license_number}%"
+      # query = from t in "trucks", where: like(t.license_number, ^like), select: Truck
+      Repo.all(Truck)
+      |> Repo.preload(:truck_type)
   end
 
   @doc """

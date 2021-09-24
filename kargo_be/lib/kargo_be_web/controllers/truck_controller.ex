@@ -6,8 +6,8 @@ defmodule KargoBeWeb.TruckController do
 
   action_fallback KargoBeWeb.FallbackController
 
-  def index(conn, _params) do
-    trucks = Trucks.list_trucks()
+  def index(conn, params) do
+    trucks = Trucks.list_trucks(params)
     render(conn, "index.json", trucks: trucks)
   end
 
