@@ -13,7 +13,7 @@ export const Header = () => {
       ? [
           { url: "/shipments", label: "Shipments" },
           { url: "/trucks", label: "Trucks" },
-          { url: "/drivers", label: "Drivers" },
+          { url: "/driver", label: "Drivers" },
         ]
       : [{ url: "/shipments", label: "Shipments" }];
 
