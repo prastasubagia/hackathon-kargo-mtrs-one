@@ -9,7 +9,7 @@ defmodule KargoBe.Repo.Migrations.CreateTrucks do
       add :stnk_path, :string, null: true
       add :kir_path, :string, null: true
       add :status, :boolean, default: true, null: false
-      add :truck_type, references(:truck_types, on_delete: :nothing)
+      add :truck_type_id, references(:truck_types, on_delete: :nothing)
 
       timestamps()
     end
