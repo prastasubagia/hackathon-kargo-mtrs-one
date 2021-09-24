@@ -1,7 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
 import { Button, Container } from "react-bootstrap";
 import { FaCircle, FaPlus } from "react-icons/fa";
-import { Link } from "react-router-dom";
 import { getTrucks } from "../../apis/truck.api";
 import { Footer } from "../../components/Footer";
 import { Header } from "../../components/Header";
