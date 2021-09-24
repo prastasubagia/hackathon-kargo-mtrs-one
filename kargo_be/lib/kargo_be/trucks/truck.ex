@@ -20,7 +20,7 @@ defmodule KargoBe.Trucks.Truck do
   def changeset(truck, attrs) do
     truck
     |> cast(attrs, [:license_number, :license_type, :production_year, :stnk_path, :kir_path, :status])
-    |> validate_required([:license_number, :license_type, :production_year, :stnk_path, :kir_path, :status])
+    |> validate_required([:license_number, :license_type, :status])
     |> assoc_constraint(:truck_type)
   end
 end
