@@ -14,6 +14,7 @@ defmodule KargoBeWeb.DriverView do
     %{id: driver.id,
       driver_name: driver.driver_name,
       phone_number: driver.phone_number,
+      status: driver.status,
       id_card: driver.id_card,
       driver_license: driver.driver_license}
   end
