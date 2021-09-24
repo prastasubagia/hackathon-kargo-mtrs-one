@@ -6,6 +6,11 @@ import Home from "./pages/home";
 import Login from "./pages/login";
 import Trucks from "./pages/trucks";
 
+import Drivers from "./pages/drivers";
+import { NotFound } from "./components/Not-Found";
+import DetailsPage  from "./components/DetailsPage";
+import AddForm from "./pages/drivers/components/AddForm";
+
 function App() {
   return (
     <div className="App">
@@ -24,7 +29,16 @@ function App() {
           {/* <Route path="/driver/update/:id" component={AddForm} /> */}
 
           <Route path="/not-found" component={NotFound} />
-          <Route component={NotFound} />
+          <Route path="/driver" exact>
+            <Drivers />
+          </Route>
+          {/* <Route path="/truck">
+            {role === "transporter" ? <Trucks /> : <Login />}
+          </Route> */}
+          <Route path="/driver" exact component={Drivers} />
+          <Route path="/driver/:id" exact component={DetailsPage} />
+          <Route path="/driver/add" exact component={AddForm} />
+          {/* <Route path="/driver/update/:id" component={AddForm} /> */}
         </Switch>
       </Router>
     </div>
