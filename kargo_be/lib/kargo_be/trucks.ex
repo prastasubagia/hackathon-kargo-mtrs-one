@@ -19,29 +19,58 @@ defmodule KargoBe.Trucks do
   """
   def list_trucks(params) do
     if Map.has_key?(params, "license_number") || Map.has_key?(params, "truck_type_id") do
-      truck_type_ids = String.split(params["truck_type_id"], ",") |> Enum.map(&String.to_integer/1)
+      truck_type_ids =
+        if String.length(params["truck_type_id"]) > 0,
+          do: String.split(params["truck_type_id"], ",") |> Enum.map(&String.to_integer/1),
+          else: []
       license_number = params["license_number"]
       like1 = "%#{license_number}%"
-      query =
-        from t in "trucks",
-          join: tt in "truck_types",
-          on: t.truck_type_id == tt.id,
-          where: like(t.license_number, ^like1),
-          where: t.truck_type_id in ^truck_type_ids,
-          select: %{
-            id: t.id,
-            license_number: t.license_number,
-            license_type: t.license_type,
-            production_year: t.production_year,
-            stnk_path: t.stnk_path,
-            kir_path: t.kir_path,
-            status: t.status,
-            truck_type: %{
-              id: tt.id,
-              name: tt.name
+
+      if length(truck_type_ids) > 0 do
+        query =
+          from t in "trucks",
+            join: tt in "truck_types",
+            on: t.truck_type_id == tt.id,
+            where: like(t.license_number, ^like1),
+            where: t.truck_type_id in ^truck_type_ids,
+            select: %{
+              id: t.id,
+              license_number: t.license_number,
+              license_type: t.license_type,
+              production_year: t.production_year,
+              stnk_path: t.stnk_path,
+              kir_path: t.kir_path,
+              status: t.status,
+              truck_type: %{
+                id: tt.id,
+                name: tt.name
+              }
             }
-          }
-      Repo.all(query)
+
+        Repo.all(query)
+      else
+        query =
+          from t in "trucks",
+            join: tt in "truck_types",
+            on: t.truck_type_id == tt.id,
+            where: like(t.license_number, ^like1),
+            where: not is_nil(t.truck_type_id),
+            select: %{
+              id: t.id,
+              license_number: t.license_number,
+              license_type: t.license_type,
+              production_year: t.production_year,
+              stnk_path: t.stnk_path,
+              kir_path: t.kir_path,
+              status: t.status,
+              truck_type: %{
+                id: tt.id,
+                name: tt.name
+              }
+            }
+
+        Repo.all(query)
+      end
     else
       Repo.all(Truck)
       |> Repo.preload(:truck_type)
